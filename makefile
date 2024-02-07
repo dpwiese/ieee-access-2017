@@ -30,6 +30,11 @@ $(OUT)/%.pdf: $(SRC)/%.tex $(BIB)/%.bib | $(OUT)
 	&& openout_any=a $(ENGINE) --jobname=$(basename $@) --output-directory=$(OUT) --file-line-error --shell-escape --synctex=1 $< \
 	&& cd ..
 
+$(OUT)/%.pdf: $(SRC)/%.tex | $(OUT)
+	cd $(SRC) \
+	&& openout_any=a $(ENGINE) --jobname=$(basename $@) --output-directory=$(OUT) --file-line-error --shell-escape --synctex=1 $< \
+	&& cd ..
+
 lint:
 	chktex -I0 -l $(SRC)/.chktexrc $(SRC)/*.tex
 	$(foreach x, $(SRC_FILES), lacheck $(x);)
